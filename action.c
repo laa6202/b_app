@@ -7,6 +7,7 @@
 
 #include "action.h"
 #include "file_op.h"
+#include "arg.h"
 
 int GetDir(int argv,char **argc,char * dstDir,char * srcDir){
 //	printf("argv = %d\n",argv);
@@ -80,7 +81,7 @@ int ActionPreSrcFn(char * dstDir, const char * srcAbsFn,const char * srcFn){
 	for(int i=0;i<pics;i++){
 		fread(content,1,len,fid);
 		fread(&stamp,1,sizeof(stamp),fid);
-		if(i<2)	//only handle first 2 frame
+//		if(i<2)	//only handle first 2 frame
 		ActionFrame(content,height,width,stamp,dstDir,srcFn);
 	}
 	fclose(fid);
@@ -92,7 +93,13 @@ int ActionFrame(unsigned char * content,int height,int width,time_t stamp,const 
 //	printf("ActionFrame:%ld\t%s\n",stamp,srcFn);
 	char dstAbsFn[250];
 	GetDstFn(dstAbsFn,dstDir,stamp,srcFn);
-	FILE * fid = fopen(dstAbsFn,"w");
+	FILE * fid = fopen(dstAbsFn,"wb");
+	U16 bm = 0x4D42;
+	fwrite(&bm,1,sizeof(U16),fid);
+	WriteBMPFileHead(fid,height,width);
+	WriteBMPInfoHead(fid,height,width);
+	WriteBMPRGBQUAD(fid);
+	WriteBMPContent(fid,content);
 	fclose(fid);	
 	return 0;
 }
