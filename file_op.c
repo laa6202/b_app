@@ -40,27 +40,37 @@ int GetSrcFn(char * absFn,char * fn,const char * dir,long int * offset){
 //		printf("No Next Src File Exist.\n");
 		return -1;
 	}
-
 	while(strncmp(ptrDir->d_name,".",1) == 0){
 		ptrDir = readdir(dirid);
 	}
-
 	if(ptrDir == NULL){
 //		printf("No Next Src File Exist.\n");
 		return -1;
 	}
-
 	*offset = telldir(dirid);
 	strcpy(absFn,dir);
 	strcat(absFn,"/");
 	strcat(absFn,ptrDir->d_name);
 	strcpy(fn,ptrDir->d_name);
 //	printf("GetSrcFn file name = %s\n",ptrDir->d_name);
-	
 	closedir(dirid);
 	return 0;
 }
 
 
+int GetDstFn(char * dstAbsFn,const char * dstDir,time_t now,const char * srcFn){
+	struct tm *tm_now;
+	tm_now = localtime(&now);
+	char st_now[50];
+	sprintf(st_now,"%02d%02d%02d_%02d%02d%02d_",tm_now->tm_year-100,tm_now->tm_mon,tm_now->tm_mday,tm_now->tm_hour,tm_now->tm_min,tm_now->tm_sec);
+//	printf("st_now = %s",st_now);
+	strcpy(dstAbsFn,dstDir);
+	strcat(dstAbsFn,"/");
+	strcat(dstAbsFn,st_now);
+	strcat(dstAbsFn,srcFn);
+//	printf("dstAbsFn = %s\n",dstAbsFn);
+	return 0;
+}
 
+ 
 

@@ -71,11 +71,9 @@ int ActionPreSrcFn(char * dstDir, const char * srcAbsFn,const char * srcFn){
 	unsigned short width;
 	fread(&height,1,sizeof(height),fid);
 	fread(&width,1,sizeof(width),fid);
-
 	printf("p=%d  ",pics);
 	printf("w=%d  ",width);
 	printf("h=%d\n",height);
-
 	int len = height * width /2; 
 	unsigned char content[len];
 	time_t stamp;
@@ -90,10 +88,12 @@ int ActionPreSrcFn(char * dstDir, const char * srcAbsFn,const char * srcFn){
 }
 
 
-int ActionFrame(unsigned char * content,int height,int width,time_t stamp,const char * dir,const char * srcFn){
-	printf("ActionFrame:%ld\t%s\n",stamp,srcFn);
-
-
+int ActionFrame(unsigned char * content,int height,int width,time_t stamp,const char * dstDir,const char * srcFn){
+//	printf("ActionFrame:%ld\t%s\n",stamp,srcFn);
+	char dstAbsFn[250];
+	GetDstFn(dstAbsFn,dstDir,stamp,srcFn);
+	FILE * fid = fopen(dstAbsFn,"w");
+	fclose(fid);	
 	return 0;
 }
 
