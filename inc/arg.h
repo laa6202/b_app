@@ -44,7 +44,7 @@ typedef struct {
 int WriteBMPFileHead(FILE * fid,int height,int width);
 int WriteBMPInfoHead(FILE * fid,int height,int width);
 int WriteBMPRGBQUAD(FILE * fid);
-int WriteBMPContent(FILE * fid,const char * content);
+int WriteBMPContent(FILE * fid,const char * content,int len);
 
 
 

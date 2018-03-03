@@ -99,7 +99,7 @@ int ActionFrame(unsigned char * content,int height,int width,time_t stamp,const 
 	WriteBMPFileHead(fid,height,width);
 	WriteBMPInfoHead(fid,height,width);
 	WriteBMPRGBQUAD(fid);
-	WriteBMPContent(fid,content);
+	WriteBMPContent(fid,content,width*height/2);
 	fclose(fid);	
 	return 0;
 }

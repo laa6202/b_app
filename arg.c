@@ -2,6 +2,7 @@
 
 #include "arg.h"
 
+
 int WriteBMPFileHead(FILE * fid,int height,int width){
 	BMPFILEHEAD bmpFileHead;
 //	bmpFileHead.bfType = 0x4D42;
@@ -38,13 +39,23 @@ int WriteBMPInfoHead(FILE * fid,int height,int width){
 
 
 int WriteBMPRGBQUAD(FILE * fid){
-
+	typedef struct {
+		U8 B; U8 G; U8 R; U8 res;
+	} COLOR;
+	COLOR color[16];
+	for(int i=0;i<16;i++){
+		color[i].B = i * 0x10 + 0xF;
+		color[i].G = i * 0x10 + 0xF;
+		color[i].R = i * 0x10 + 0xF;
+		color[i].res = 0;
+	}
+	fwrite(color, 16,sizeof(COLOR),fid);
 	return 0;
 }
 
 
-int WriteBMPContent(FILE * fid,const char * content){
-
+int WriteBMPContent(FILE * fid,const char * content, int len){
+	fwrite(content,len,1,fid);
 	return 0;
 }
 
