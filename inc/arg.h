@@ -27,6 +27,19 @@ typedef struct {
 }	BMPFILEHEAD,*pBMPFILEHEAD;
 
 	
+typedef struct {
+	U32 biSize;
+	int biWidth;
+	int biHeight;
+	U16 biPlanes;
+	U16 biBitCount;
+	U32 biCompression;
+	U32 biSizeImage;
+	int biXPelsPerMeter;
+	int biYPelsPerMeter;
+	U32 biClrUsed;
+	U32 biClrImportant;
+}	BMPINFOHEAD,*pBMPINFOHEAD;
 
 int WriteBMPFileHead(FILE * fid,int height,int width);
 int WriteBMPInfoHead(FILE * fid,int height,int width);
