@@ -9,7 +9,7 @@
 #include "file_op.h"
 #include "arg.h"
 
-int GetDir(int argv,char **argc,char * dstDir,char * srcDir){
+int GetDir(int argv,char **argc,char * dstDir,char * srcDir,int * bSource){
 //	printf("argv = %d\n",argv);
 //	printf("argc[0] = %s\n",argc[0]);
 	if(argv == 1){
@@ -31,6 +31,14 @@ int GetDir(int argv,char **argc,char * dstDir,char * srcDir){
 		strcat(dstDir,"/");
 		strcat(dstDir,argc[2]);
 		printf("dstDir = %s\n",dstDir);
+	}
+	if(argv >=4){
+		if(argc[3] == "0")
+			*bSource = 0;
+		else {
+			*bSource = 1;
+			printf("Make Source for Test.\n");
+		}
 	}
 	MakeDir(srcDir);
 	MakeDir(dstDir);

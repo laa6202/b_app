@@ -65,6 +65,8 @@ int SetContent(const SINFO sinfo,U8 * content){
 
 	int len = sinfo.width * sinfo.height /2 ;
 	memset(content,0x30,len);	
+	for(int i=0;i<len;i++)
+		*(content+i) = (i & 0xff);
 
 	return 0;
 }

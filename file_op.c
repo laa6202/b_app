@@ -13,7 +13,7 @@ int MakeDir(const char * dir){
 	dirid = opendir(dir);
 	if(dirid ==NULL){
 		mkdir(dir,0775);
-	//	printf("build dir : %s \n",dir);
+		printf("%s Not Exist,build it. \n",dir);
 	}		
 	else{ 
 	//	printf("dirid != NULL\n");
@@ -37,14 +37,19 @@ int GetSrcFn(char * absFn,char * fn,const char * dir,long int * offset){
 	struct dirent *ptrDir;
 	ptrDir = readdir(dirid);
 	if(ptrDir == NULL){
-//		printf("No Next Src File Exist.\n");
+		printf("No Src File Exist.\n");
 		return -1;
 	}
 	while(strncmp(ptrDir->d_name,".",1) == 0){
+		printf("%s\n",ptrDir->d_name);
 		ptrDir = readdir(dirid);
+		if(ptrDir == NULL){
+			printf("No File Exist after . or ..  \n");
+			return -1;
+		}
 	}
 	if(ptrDir == NULL){
-//		printf("No Next Src File Exist.\n");
+		printf("No Next Src File Exist.\n");
 		return -1;
 	}
 	*offset = telldir(dirid);
