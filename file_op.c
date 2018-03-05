@@ -63,16 +63,13 @@ int GetSrcFn(char * absFn,char * fn,const char * dir,long int * offset){
 }
 
 
-int GetDstFn(char * dstAbsFn,const char * dstDir,time_t now,const char * srcFn){
-	struct tm *tm_now;
-	tm_now = localtime(&now);
-	char st_now[50];
-	sprintf(st_now,"%02d%02d%02d_%02d%02d%02d_",tm_now->tm_year-100,tm_now->tm_mon,tm_now->tm_mday,tm_now->tm_hour,tm_now->tm_min,tm_now->tm_sec);
-//	printf("st_now = %s",st_now);
+int GetDstFn(char * dstAbsFn,const char * dstDir,const char * stNow,const char * srcFn){
+//	printf("st_now = %s\t",stNow);
 	strcpy(dstAbsFn,dstDir);
 	strcat(dstAbsFn,"/");
-	strcat(dstAbsFn,st_now);
+	strcat(dstAbsFn,stNow);
 	strcat(dstAbsFn,srcFn);
+	strcat(dstAbsFn,".bmp");
 //	printf("dstAbsFn = %s\n",dstAbsFn);
 	return 0;
 }

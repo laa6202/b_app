@@ -6,12 +6,12 @@
 #include "source.h"
 
 int SetSourceInfo(pSINFO psinfo,const char * srcDir){
-	int nFile = 10;	
+	int nFile = 5;	
 	strcpy(psinfo->dir,srcDir);
 	psinfo->nFile = nFile;
 	psinfo->height = 768;
 	psinfo->width = 1024;
-	psinfo->pics = 60;
+	psinfo->pics = 3;
 	psinfo->fn = malloc(nFile*sizeof(psinfo->fn[250]));
 	for(int i=0;i<nFile;i++){
 		strcpy(*(psinfo->fn + i),srcDir);
@@ -52,8 +52,15 @@ int SourceFile(const SINFO sinfo,int index){
 		fwrite(content,1,len,fid);
 		time_t now;
 		time(&now);
-		now += i; // for no same
-		fwrite(&now,1,sizeof(now),fid);
+		now = now + i;	//for time different 
+		struct tm * t;
+		t = localtime(&now);
+		char stNow[20];
+		memset(stNow,0,20);
+		sprintf(stNow,"%02d%02d%02d_%02d%02d%02d.000",t->tm_year-100,
+			t->tm_mon,t->tm_mday,t->tm_hour,t->tm_min,t->tm_sec);
+//		printf("stamp = %s\n",stNow);
+		fwrite(stNow,20,sizeof(char),fid);
 	}
 	free(content);
 	fclose(fid);

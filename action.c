@@ -85,10 +85,11 @@ int ActionPreSrcFn(char * dstDir, const char * srcAbsFn,const char * srcFn){
 	printf("h=%d\n",height);
 	int len = height * width /2; 
 	unsigned char content[len];
-	time_t stamp;
+	char stamp[20];
+	memset(stamp,0,20);
 	for(int i=0;i<pics;i++){
 		fread(content,1,len,fid);
-		fread(&stamp,1,sizeof(stamp),fid);
+		fread(&stamp,20,sizeof(char),fid);
 //		if(i<2)	//only handle first 2 frame
 		ActionFrame(content,height,width,stamp,dstDir,srcFn);
 	}
@@ -97,7 +98,7 @@ int ActionPreSrcFn(char * dstDir, const char * srcAbsFn,const char * srcFn){
 }
 
 
-int ActionFrame(unsigned char * content,int height,int width,time_t stamp,const char * dstDir,const char * srcFn){
+int ActionFrame(unsigned char * content,int height,int width,const char * stamp,const char * dstDir,const char * srcFn){
 //	printf("ActionFrame:%ld\t%s\n",stamp,srcFn);
 	char dstAbsFn[250];
 	GetDstFn(dstAbsFn,dstDir,stamp,srcFn);
