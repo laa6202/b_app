@@ -86,10 +86,11 @@ int ActionPreSrcFn(char * dstDir, const char * srcAbsFn,const char * srcFn){
 	int len = height * width /2; 
 	unsigned char content[len];
 	char stamp[20];
-	memset(stamp,0,20);
 	for(int i=0;i<pics;i++){
 		fread(content,1,len,fid);
+		memset(stamp,0,20);
 		fread(&stamp,20,sizeof(char),fid);
+		CorrectStNow(stamp);
 //		if(i<2)	//only handle first 2 frame
 		ActionFrame(content,height,width,stamp,dstDir,srcFn);
 	}
@@ -114,5 +115,12 @@ int ActionFrame(unsigned char * content,int height,int width,const char * stamp,
 }
 
 
-
+int CorrectStNow(char * stNow){
+//	*(stNow+16) = 0;
+//	*(stNow+15) = 0;
+	*(stNow+17) = 0;
+	*(stNow+18) = 0;
+	*(stNow+19) = 0;
+	return 0;
+}
 

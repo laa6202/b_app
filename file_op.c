@@ -64,7 +64,7 @@ int GetSrcFn(char * absFn,char * fn,const char * dir,long int * offset){
 
 
 int GetDstFn(char * dstAbsFn,const char * dstDir,const char * stNow,const char * srcFn){
-//	printf("st_now = %s\t",stNow);
+//	printf("st_now = %s\n",stNow);
 	strcpy(dstAbsFn,dstDir);
 	strcat(dstAbsFn,"/");
 	strcat(dstAbsFn,stNow);
